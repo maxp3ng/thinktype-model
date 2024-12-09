@@ -14,15 +14,12 @@ def generate_vowel_patterns():
         ("dog", "dg", "dog"),
     ]
     
-    # Generate full sentences from combinations
     full_sentence = "the quick brown fox jumps over the lazy dog"
     training_pairs = []
     
-    # Add the classic example
     training_pairs.append(("th qk brwn fx jmps ovr th lzy dg", full_sentence))
     
-    # Generate variations
-    words = [p[1:] for p in base_pairs]  # Get all variations for each word
+    words = [p[1:] for p in base_pairs]  
     for variation in product(*words):
         shorthand = " ".join(variation)
         training_pairs.append((shorthand, full_sentence))
@@ -32,7 +29,6 @@ def generate_vowel_patterns():
 def generate_common_patterns():
     """Generate common shorthand patterns"""
     patterns = [
-        # Basic words with multiple shorthand versions
         ("what", ["wht", "wt", "wat"]),
         ("your", ["yr", "ur", "yor"]),
         ("please", ["pls", "plz", "plse"]),
@@ -40,13 +36,11 @@ def generate_common_patterns():
         ("good", ["gd", "gud", "good"]),
         ("great", ["grt", "gr8", "great"]),
         
-        # Common phrases
         ("how are you", ["hw r u", "how r u", "hw are u"]),
         ("be right back", ["brb", "b rght bk", "be rt bk"]),
         ("as soon as possible", ["asap", "as sn as psbl", "asap psbl"]),
         ("in my opinion", ["imo", "in my opn", "n my opn"]),
         
-        # Technical terms
         ("function", ["func", "fn", "fnctn"]),
         ("parameter", ["param", "prm", "prmtr"]),
         ("variable", ["var", "vr", "vrbl"]),
@@ -60,10 +54,8 @@ def generate_common_patterns():
     
     return pairs
 
-# Combine all our training data
 training_data = generate_vowel_patterns() + generate_common_patterns()
 
-# Add some full context examples
 context_examples = [
     ("i nd to fx ths asap", "i need to fix this as soon as possible"),
     ("cn u hlp w the impl", "can you help with the implementation"),
@@ -72,11 +64,9 @@ context_examples = [
 ]
 training_data.extend(context_examples)
 
-# Convert to DataFrame and save
 df = pd.DataFrame(training_data, columns=['shorthand', 'fulltext'])
 df = df.drop_duplicates()
 
-# Save to CSV
 df.to_csv('thinktype_training_data_v2.csv', index=False)
 
 print(f"Created dataset with {len(df)} examples")
